@@ -3,8 +3,8 @@
 echo "Enter your desired username"
 read name
 
-adduser machima --disabled-password --gecos ""
+adduser $name --disabled-password --gecos ""
 
-usermod -aG sudo machima
+usermod -aG sudo $name
 
-su - machima
+su - $name
