@@ -1,0 +1,10 @@
+numpy
+matplotlib
+accelerate
+pandas
+ipykernel
+transformers[torch]
+sentencepiece
+deepspeed
+tqdm
+jupyter
