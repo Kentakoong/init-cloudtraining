@@ -37,7 +37,7 @@ chmod +x cuda_upgrade.sh
 then it will log the versions available, select the version you want to install (usually the recommended version).
 
 ```bash
-sudo apt install cuda-<version>
+sudo apt install <version>
 ```
 
 then reboot the server.
