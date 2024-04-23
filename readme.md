@@ -8,6 +8,7 @@ Do the scripts step-by-step. Don't proceed to the next step until the current st
 
 ```bash
 git clone https://github.com/Kentakoong/init-cloudtraining.git
+```
 
 ## Create User
 
