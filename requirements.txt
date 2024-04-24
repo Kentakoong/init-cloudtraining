@@ -8,4 +8,6 @@ sentencepiece
 deepspeed
 tqdm
 jupyter
-kaggle
+datasets
+evaluate
+sacrebleu
