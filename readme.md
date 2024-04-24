@@ -14,17 +14,23 @@ git clone https://github.com/Kentakoong/init-cloudtraining.git
 
 Conda doesn't like to be installed as root. So, we need to create a user to install conda.
 
-```bash
-adduser <your-name> --gecos ""
+SSH in as root, and create a user.
 
-usermod -aG sudo <your-name>
+```bash
+ssh root@<server-ip>
+```
+
+```bash
+adduser <created-username> --gecos ""
+
+usermod -aG sudo <created-username>
 ```
 
 then set the password for the user.
 
 ```bash
 
-su - <your-name>
+su - <created-username>
 
 ```
 
