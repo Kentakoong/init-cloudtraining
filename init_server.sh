@@ -23,6 +23,8 @@ c.NotebookApp.ip = ''
 c.NotebookApp.port = 8888
 c.NotebookApp.open_browser = False
 c.NotebookApp.quit_button = False
+c.TerminalManager.cull_inactive_timeout = 0
+c.TerminalManager.cull_idle_timeout = 0
 """
 
 echo "$configs" >>$config_file
