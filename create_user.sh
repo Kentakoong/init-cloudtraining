@@ -3,7 +3,7 @@
 echo "Enter your desired username"
 read name
 
-adduser $name --disabled-password --gecos ""
+adduser $name --gecos 
 
 usermod -aG sudo $name
 
