@@ -44,6 +44,10 @@ ssh <created-username>@<server-ip>
 
 ***Note: SSH into the server as the user created in the previous step first.***
 
+```bash
+cd init-cloudtraining/huawei-cloud
+```
+
 For PyTorch to work properly, we need to install the correct version of CUDA. This script will help you to install the correct version of CUDA.
 
 ```bash
