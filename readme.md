@@ -1,80 +1,11 @@
-# Scripts for initializing the server
+# Cloud Initialize Scripts for LANTA and Huawei Cloud
 
-Installation scripts has some steps that needs manual intervention. This script will help you to automate the process.
+This repository contains scripts for initializing the cloud server for training purposes. The scripts are tested on LANTA and Huawei Cloud.
 
-Do the scripts step-by-step. Don't proceed to the next step until the current step is completed.
+## For LANTA, follow the steps below:
 
-## Login to the server as root, and clone the repository
+[Scripts for LANTA](lanta/readme-lanta.md)
 
-```bash
-git clone https://github.com/Kentakoong/init-cloudtraining.git
-```
+## For Huawei Cloud, follow the steps below:
 
-## Create User
-
-Conda doesn't like to be installed as root. So, we need to create a user to install conda.
-
-SSH in as root, and create a user.
-
-```bash
-ssh root@<server-ip>
-```
-
-```bash
-adduser <created-username> --gecos ""
-
-usermod -aG sudo <created-username>
-```
-
-then set the password for the user.
-
-```bash
-
-su - <created-username>
-
-```
-
-On finished, you as the administrator quit the ssh session and access the server with the created user via Visual Studio Code.
-
-```bash
-ssh <created-username>@<server-ip>
-```
-
-## Update CUDA version
-
-For PyTorch to work properly, we need to install the correct version of CUDA. This script will help you to install the correct version of CUDA.
-
-```bash
-chmod +x cuda_upgrade.sh
-./cuda_upgrade.sh
-```
-
-then it will log the versions available, select the version you want to install (usually the recommended version).
-
-```bash
-sudo apt install <version>
-```
-
-then reboot the server.
-
-```bash
-sudo reboot
-```
-
-then ssh into the server again.
-
-```bash
-ssh <created-username>@<server-ip>
-```
-
-## Install Conda and base packages
-
-***Note: SSH into the server as the user created in the previous step first.***
-
-```bash
-chmod +x install_conda.sh
-./install_conda.sh
-
-source ~/.bashrc
-
-```
+[Scripts for Huawei Cloud](huawei-cloud/readme-hwc.md)
