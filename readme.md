@@ -2,10 +2,12 @@
 
 This repository contains scripts for initializing the cloud server for training purposes. The scripts are tested on LANTA and Huawei Cloud.
 
-## For LANTA, follow the steps below:
+## For LANTA, follow the steps below
 
 [Scripts for LANTA](lanta/readme-lanta.md)
 
-## For Huawei Cloud, follow the steps below:
+## For Huawei Cloud, follow the steps below
 
 [Scripts for Huawei Cloud](huawei-cloud/readme-hwc.md)
+
+### To check CUDA and conda installation, use the test.ipynb notebook
