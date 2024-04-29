@@ -51,7 +51,8 @@ To access the Jupyter Server, copy the URL from the slurm file and paste it into
 ssh -L <PORT>:<HOST>:<PORT> <username>@lanta.nstda.or.th -i <path-to-private-key>
 ```
 
-Then open your browser and go to `localhost:<PORT>` to access the Jupyter Server.
+Then open your browser and go to `localhost:<PORT>`  
+or copy the URL with the token from the slurm file and paste it into your browser.
 
 ## Stopping the Jupyter Server
 
