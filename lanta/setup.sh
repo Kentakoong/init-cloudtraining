@@ -146,11 +146,11 @@ fi
 
 PROJECT_NAME_BATCH=$(echo $project_name | cut -d- -f1)
 
-if ["$NODE_TYPE" == "gpu"]; then
+GPU_OPTION=""
+
+if [ "$NODE_TYPE" == "gpu" ]; then
     GPU_OPTION="""
-    #SBATCH --gpus-per-task=$GPUs           # Specify the number of GPUs"""
-else
-    GPU_OPTION=""
+#SBATCH --gpus-per-task=$GPUs           # Specify the number of GPUs"""
 fi
 
 params="""#!/bin/bash
