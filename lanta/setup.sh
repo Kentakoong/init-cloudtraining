@@ -175,6 +175,8 @@ export HF_DATASETS_CACHE=/project/$project_name-ai2415/.cache
 export TRANSFORMERS_CACHE=/project/$project_name-ai2415/.cache
 export HF_HUB_CACHE=/project/$project_name-ai2415/.cache
 export HF_HUB_OFFLINE=1
+HF_DATASETS_OFFLINE=1
+TRANSFORMERS_OFFLINE=1
 EOF
 
 cat <<EOF >>./submit.sh
