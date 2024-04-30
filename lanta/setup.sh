@@ -181,13 +181,13 @@ if [ -z "$conda_env" ]; then
     exit 1
 fi
 
-read -p "Press enter to copy the following parameters to submit.sh... "
+read -p "Press enter to copy the following parameters to submit-$NODE_TYPE.sh... "
 
-cat <<EOF >./submit.sh
+cat <<EOF >./submit-$NODE_TYPE.sh
 $params 
 EOF
 
-cat <<EOF >>./submit.sh
+cat <<EOF >>./submit-$NODE_TYPE.sh
 ml Mamba
 conda activate $conda_env
 export HF_DATASETS_CACHE=/project/$project_name/.cache
@@ -198,16 +198,16 @@ HF_DATASETS_OFFLINE=1
 TRANSFORMERS_OFFLINE=1
 EOF
 
-cat <<EOF >>./submit.sh
+cat <<EOF >>./submit-$NODE_TYPE.sh
 $jupyter
 EOF
 
 tput clear
 
-echo "Parameters copied to submit.sh"
+echo "Parameters copied to submit-$NODE_TYPE.sh"
 
-cat ./submit.sh
+cat ./submit-$NODE_TYPE.sh
 
 read -p "Confirm the file, then press enter to submit the job... "
 
-sbatch ./submit.sh
+sbatch ./submit-$NODE_TYPE.sh
