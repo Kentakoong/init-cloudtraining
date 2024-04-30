@@ -16,11 +16,7 @@ ssh <name>@lanta.nstda.or.th
 mkdir scripts
 cd scripts
 
-wget https://github.com/Kentakoong/init-cloudtraining/releases/download/LANTA-1.0.0/setup.sh
-
-# for Machima
-
-wget https://github.com/Kentakoong/init-cloudtraining/releases/download/LANTA-1.0.1MCM/setup.sh
+wget https://github.com/Kentakoong/init-cloudtraining/releases/download/LANTA-1.0.1/setup.sh
 
 chmod 700 setup.sh
 
@@ -74,15 +70,62 @@ Then run the following command to stop the Jupyter Server.
 scancel <job-id>
 ```
 
+## To Install Packages or create Environments, use the compute node to install
+
+```bash
+ssh <username>@transfer.lanta.nstda.or.th
+```
+
+Then run the following command to SSH into the compute node.
+
+```bash
+chmod 700 setup.sh
+
+./setup.sh
+
+myqueue
+
+ssh lanta-c-xxx
+```
+
+### To clone existing environment
+
+**NOTE: Your disk quota is limited to 100GB, if you need more space, use your house projects storage.**
+
+```bash
+conda create --name <env-name> --clone <source-env>
+```
+
+### To install packages
+
+```bash
+conda activate <env-name>
+
+# To install a package
+conda install <package-name>
+
+# To install a package from a requirements file
+pip install --file requirements.txt
+```
+
+### To remove an environment
+
+```bash
+conda env remove -n <env-name>
+```
+
 ## Basic Slurm Commands
 
 ### s* commands
 
 `sbatch` - Submit a batch script to the queue.
+
 `scancel` - Cancel a job.
+
 `sbalance` - Check the balance of the queue (GPU hours).
 
 ### my* commands
 
 `myqueue` - Check the queue.
+
 `myquota` - Check your quota (Disk usage, projects).
