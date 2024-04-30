@@ -62,6 +62,10 @@ function select_option() {
 
 tput clear
 
+node_type=("compute" "gpu")
+echo "Please select one of the following options:"
+NODE_TYPE=$(select_option "${node_type[@]}")
+
 processors=("1 (128c)" "1/2 (64c)" "1/4 (32c)" "1/8 (16c)")
 echo "Please select one of the following options:"
 PROCESSORS_TYPE=$(select_option "${processors[@]}")
@@ -80,14 +84,21 @@ tput clear
 echo "Processors Type: $PROCESSORS_TYPE"
 echo ""
 
-gpu_options=("1" "2" "3" "4")
-echo "Please select the number of GPUs:"
-GPUs=$(select_option "${gpu_options[@]}")
+if [ "$NODE_TYPE" == "gpu" ]; then
+    gpu_options=("1" "2" "3" "4")
+    echo "Please select the number of GPUs:"
+    GPUs=$(select_option "${gpu_options[@]}")
 
-tput clear
-echo "Processors Type: $PROCESSORS_TYPE"
-echo "Number of GPUs: $GPUs"
-echo ""
+    SPACES_NODE_TYPE="                    "
+
+    tput clear
+    echo "Processors Type: $PROCESSORS_TYPE"
+    echo "Number of GPUs: $GPUs"
+    echo ""
+else
+    GPUs="N/A"
+    SPACES_NODE_TYPE="                "
+fi
 
 echo "Please enter the maximum time limit (hour: minute: second):"
 read -p "Time limit: " TIME_LIMIT
@@ -135,10 +146,16 @@ fi
 
 PROJECT_NAME_BATCH=$(echo $project_name | cut -d- -f1)
 
+if ["$NODE_TYPE" == "gpu"]; then
+    GPU_OPTION="""
+    #SBATCH --gpus-per-task=$GPUs           # Specify the number of GPUs"""
+else
+    GPU_OPTION=""
+fi
+
 params="""#!/bin/bash
-#SBATCH -p gpu                      # Specify partition [Compute/Memory/GPU]
-#SBATCH -N 1 -c $PROCESSORS_TYPE $SPACES_PROCESSORS # Specify number of nodes and processors per task
-#SBATCH --gpus-per-task=$GPUs           # Specify the number of GPUs
+#SBATCH -p $NODE_TYPE $SPACES_NODE_TYPE # Specify partition [Compute/Memory/GPU]
+#SBATCH -N 1 -c $PROCESSORS_TYPE $SPACES_PROCESSORS # Specify number of nodes and processors per task$GPU_OPTION
 #SBATCH --ntasks-per-node=1         # Specify tasks per node
 #SBATCH -t $TIME_LIMIT                  # Specify maximum time limit (hour: minute: second)
 #SBATCH -A $PROJECT_NAME_BATCH                 # Specify project name
