@@ -18,6 +18,10 @@ cd scripts
 
 wget https://github.com/Kentakoong/init-cloudtraining/releases/download/LANTA-1.0.0/setup.sh
 
+# for Machima
+
+wget https://github.com/Kentakoong/init-cloudtraining/releases/download/LANTA-1.0.1MCM/setup.sh
+
 chmod 700 setup.sh
 
 ./setup.sh
