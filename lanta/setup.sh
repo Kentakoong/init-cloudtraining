@@ -80,19 +80,19 @@ tput clear
 echo "Processors Type: $PROCESSORS_TYPE"
 echo ""
 
-gpus=("1" "2" "3" "4")
+gpu_options=("1" "2" "3" "4")
 echo "Please select the number of GPUs:"
-gpus=$(select_option "${gpus[@]}")
+GPUs=$(select_option "${gpu_options[@]}")
 
 tput clear
 echo "Processors Type: $PROCESSORS_TYPE"
-echo "Number of GPUs: $gpus"
+echo "Number of GPUs: $GPUs"
 echo ""
 
 echo "Please enter the maximum time limit (hour: minute: second):"
-read -p "Time limit: " time_limit
+read -p "Time limit: " TIME_LIMIT
 
-IFS=':' read -r hours minutes seconds <<<"$time_limit"
+IFS=':' read -r hours minutes seconds <<<"$TIME_LIMIT"
 total_seconds=$((hours * 3600 + minutes * 60 + seconds))
 
 threshold_hours=120
@@ -103,24 +103,24 @@ tput clear
 if [ $total_seconds -gt $threshold_seconds ]; then
     echo "The input time exceeds $threshold_hours hours, setting to default time limit. (2:00:00)"
     echo ""
-    time_limit="2:00:00"
-elif [ -z "$time_limit" ]; then
+    TIME_LIMIT="2:00:00"
+elif [ -z "$TIME_LIMIT" ]; then
     echo "Time limit not specified, setting to default time limit. (2:00:00)"
     echo ""
-    time_limit="2:00:00"
-elif [[ ! $time_limit =~ ^[0-9]{1,2}:[0-9]{2}:[0-9]{2}$ ]]; then
+    TIME_LIMIT="2:00:00"
+elif [[ ! $TIME_LIMIT =~ ^[0-9]{1,2}:[0-9]{2}:[0-9]{2}$ ]]; then
     echo "Invalid time format, setting to default time limit. (2:00:00)"
     echo ""
-    time_limit="2:00:00"
+    TIME_LIMIT="2:00:00"
 fi
 
 echo "Processors Type: $PROCESSORS_TYPE"
-echo "Number of GPUs: $gpus"
-echo "Time limit: $time_limit"
+echo "Number of GPUs: $GPUs"
+echo "Time limit: $TIME_LIMIT"
 
 myquota
 
-read -p "Project Name (check myquota for project names place ltxxxxxx): " project_name
+read -p "Project Name (check myquota for project names place ltxxxxxx-aixxxx): " project_name
 
 if [ -z "$project_name" ]; then
     echo "Project name cannot be empty. Exiting..."
@@ -133,13 +133,15 @@ else
     SPACES_PROCESSORS="                "
 fi
 
+PROJECT_NAME_BATCH=$(echo $project_name | cut -d- -f1)
+
 params="""#!/bin/bash
 #SBATCH -p gpu                      # Specify partition [Compute/Memory/GPU]
 #SBATCH -N 1 -c $PROCESSORS_TYPE $SPACES_PROCESSORS # Specify number of nodes and processors per task
-#SBATCH --gpus-per-task=$gpus           # Specify the number of GPUs
+#SBATCH --gpus-per-task=$GPUs           # Specify the number of GPUs
 #SBATCH --ntasks-per-node=1         # Specify tasks per node
-#SBATCH -t $time_limit                  # Specify maximum time limit (hour: minute: second)
-#SBATCH -A $project_name                 # Specify project name
+#SBATCH -t $TIME_LIMIT                  # Specify maximum time limit (hour: minute: second)
+#SBATCH -A $PROJECT_NAME_BATCH                 # Specify project name
 #SBATCH -J jupyter_notebook         # Specify job name
 """
 
@@ -171,9 +173,9 @@ EOF
 cat <<EOF >>./submit.sh
 ml Mamba
 conda activate $conda_env
-export HF_DATASETS_CACHE=/project/$project_name-ai2415/.cache
-export TRANSFORMERS_CACHE=/project/$project_name-ai2415/.cache
-export HF_HUB_CACHE=/project/$project_name-ai2415/.cache
+export HF_DATASETS_CACHE=/project/$project_name/.cache
+export TRANSFORMERS_CACHE=/project/$project_name/.cache
+export HF_HUB_CACHE=/project/$project_name/.cache
 export HF_HUB_OFFLINE=1
 HF_DATASETS_OFFLINE=1
 TRANSFORMERS_OFFLINE=1
