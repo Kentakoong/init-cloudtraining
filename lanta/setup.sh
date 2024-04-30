@@ -169,8 +169,12 @@ $params
 EOF
 
 cat <<EOF >>./submit.sh
-module load Mamba/23.11.0-0
+ml Mamba
 conda activate $conda_env
+export HF_DATASETS_CACHE=/project/$project_name-ai2415/.cache
+export TRANSFORMERS_CACHE=/project/$project_name-ai2415/.cache
+export HF_HUB_CACHE=/project/$project_name-ai2415/.cache
+export HF_HUB_OFFLINE=1
 EOF
 
 cat <<EOF >>./submit.sh
