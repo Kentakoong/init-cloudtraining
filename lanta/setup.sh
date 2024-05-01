@@ -191,7 +191,7 @@ cat <<EOF >>./submit-$NODE_TYPE.sh
 ml Mamba
 conda activate $conda_env
 export HF_DATASETS_CACHE="/project/$project_name/.cache"
-export TRANSFORMERS_CACHE="/project/$project_name/.cache"
+export HF_HOME="/project/$project_name/.cache"
 export HF_HUB_CACHE="/project/$project_name/.cache"
 export HF_HUB_OFFLINE=1
 HF_DATASETS_OFFLINE=1
