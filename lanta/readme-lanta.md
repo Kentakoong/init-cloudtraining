@@ -18,9 +18,7 @@ cd scripts
 
 wget https://github.com/Kentakoong/init-cloudtraining/releases/download/LANTA-1.0.1/setup.sh
 
-chmod 700 setup.sh
-
-./setup.sh
+bash setup.sh
 ```
 
 Then follow the interactive prompt to setup the Jupyter Server.
@@ -79,9 +77,7 @@ ssh <username>@transfer.lanta.nstda.or.th
 Then run the following command to SSH into the compute node.
 
 ```bash
-chmod 700 setup.sh
-
-./setup.sh
+bash setup.sh
 
 myqueue
 
